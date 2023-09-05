@@ -139,7 +139,7 @@ func destroy() {
 func exitApp() {
   running = false
 
-  fmt.Println("[INFO] Terima kasih telah menggunakan aplikasi kami")
+  fmt.Println("Terima kasih telah menggunakan aplikasi kami")
 }
 
 func invalidSelection() {
