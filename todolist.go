@@ -3,7 +3,8 @@ package main
 import "fmt"
 
 var running bool = true
-var todolist = []string { "Ngoding", "Belajar", "Makan", "Minum" }
+var todolist = []string { "Ngoding", "Belajar", "Makan",
+  "Minum" }
 var err error
 
 func main() {
@@ -40,21 +41,21 @@ func selectMenu() {
     case 1: show()
     case 2: store()
     case 3: update()
-    // case 4: destroy()
-    // case 5: exitApp()
+    case 4: destroy()
+    case 5:
+      exitApp()
+      return
     default: invalidSelection()
   }
 
-  var lanjut string
+  var next string
 
   fmt.Println("Lanjut? (Kosongi dan tekan Enter bila tidak)")
   fmt.Print(">> ")
-  fmt.Scanln(&lanjut)
+  fmt.Scanln(&next)
 
-  if lanjut == "" {
-    running = false
-
-    fmt.Println("Terima kasih telah menggunakan aplikasi kami")
+  if next == "" {
+    exitApp()
   }
 
   fmt.Println()
@@ -80,7 +81,7 @@ func store() {
 
   todolist = append(todolist, item)
 
-  fmt.Println("[INFO] Item berhasil ditambahkan")
+  fmt.Println("[INFO] Berhasil menambahkan item")
   fmt.Println()
 
   show()
@@ -107,10 +108,38 @@ func update() {
   fmt.Println()
 
   todolist[selection - 1] = newItem
-  fmt.Printf(`Berhasil mengubah "%s" menjadi "%s"\n`, item, newItem)
+  fmt.Printf("[INFO] Berhasil mengubah %q menjadi %q\n", item, newItem)
   fmt.Println()
 
   show()
+}
+
+func destroy() {
+  fmt.Println("[MENU] Hapus item")
+  fmt.Println()
+  show()
+
+  var selection int
+
+  fmt.Println("Masukkan nomor item yang ingin dihapus")
+  fmt.Print(">> ")
+  fmt.Scanln(&selection)
+  fmt.Println()
+
+  var index int = selection - 1
+  var item string = todolist[index]
+
+  todolist = append(todolist[:index], todolist[(index + 1):]...)
+  fmt.Printf("[INFO] Berhasil menghapus %q\n", item)
+  fmt.Println()
+
+  show()
+}
+
+func exitApp() {
+  running = false
+
+  fmt.Println("Terima kasih telah menggunakan aplikasi kami")
 }
 
 func invalidSelection() {
