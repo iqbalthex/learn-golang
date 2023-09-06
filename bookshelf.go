@@ -11,13 +11,13 @@ type Book struct {
 }
 
 var err     error
-var running bool   = true
-var books   []Book = []Book {
-  { "title 1", "author 1", 2023, false },
-  { "title 2", "author 2", 2021, true },
-  { "title 3", "author 1", 2022, false },
-  { "title 4", "author 1", 2022, true },
-  { "title 5", "author 2", 2020, false },
+var running bool            = true
+var books   map[string]Book = map[string]Book {
+  "001": { "title 1", "author 1", 2023, false },
+  "002": { "title 2", "author 2", 2021, true },
+  "003": { "title 3", "author 1", 2022, false },
+  "004": { "title 4", "author 1", 2022, true },
+  "005": { "title 5", "author 2", 2020, false },
 }
 
 func main() {
@@ -59,10 +59,10 @@ func selectMenu() {
     case 4: store()
     // case 5: update()
     // case 6: destroy()
-    // case 7:
-      // exitApp()
-      // return
-    // default: invalidSelection()
+    case 7:
+      exitApp()
+      return
+    default: invalidSelection()
   }
 
   // var next string
@@ -84,9 +84,9 @@ func show(read string) {
 
   var readBooks, unreadBooks, bookStr string
 
-  for _, book := range books {
+  for code, book := range books {
     bookStr = strings.Join([]string {
-      fmt.Sprintf("Judul: %s", book.title),
+      fmt.Sprintf("(%s) Judul: %s", code, book.title),
       fmt.Sprintf("Penulis: %s", book.author),
       fmt.Sprintf("Tahun terbit: %d\n", book.year),
     }, "\t")
@@ -114,7 +114,11 @@ func show(read string) {
 func store() {
   fmt.Println("[MENU] Tambah buku")
 
+  var code string
   var book Book
+
+  fmt.Print("Masukkan kode buku >> ")
+  fmt.Scan(&code)
 
   fmt.Print("Masukkan judul buku >> ")
   fmt.Scan(&book.title)
@@ -125,7 +129,7 @@ func store() {
   fmt.Print("Masukkan tahun terbit buku >> ")
   fmt.Scan(&book.year)
 
-  books = append(books, book)
+  books[code] = book
 
   fmt.Println("[INFO] Berhasil menambahkan buku")
   fmt.Println()
@@ -167,7 +171,7 @@ func store() {
 
   // var selection int
 
-  // fmt.Println("Masukkan nomor item yang ingin dihapus")
+  // fmt.Println("Masukkan kode buku yang ingin dihapus")
   // fmt.Print(">> ")
   // fmt.Scanln(&selection)
   // fmt.Println()
@@ -182,13 +186,13 @@ func store() {
   // show()
 // }
 
-// func exitApp() {
-  // running = false
+func exitApp() {
+  running = false
 
-  // fmt.Println("[INFO] Terima kasih telah menggunakan aplikasi kami")
-// }
+  fmt.Println("[INFO] Terima kasih telah menggunakan aplikasi kami")
+}
 
-// func invalidSelection() {
-  // fmt.Println("[INFO] Menu yang dipilih tidak tersedia.")
-  // fmt.Println()
-// }
+func invalidSelection() {
+  fmt.Println("[INFO] Menu yang dipilih tidak tersedia.")
+  fmt.Println()
+}
