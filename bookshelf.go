@@ -3,7 +3,7 @@ package main
 import "fmt"
 import "strings"
 
-type book struct {
+type Book struct {
   title  string
   author string
   year   int
@@ -11,8 +11,8 @@ type book struct {
 }
 
 var err     error
-var running bool = true
-var books   []book = []book {
+var running bool   = true
+var books   []Book = []Book {
   { "title 1", "author 1", 2023, false },
   { "title 2", "author 2", 2021, true },
   { "title 3", "author 1", 2022, false },
@@ -56,7 +56,7 @@ func selectMenu() {
     case 1: show("")
     case 2: show("read")
     case 3: show("unread")
-    // case 4: store()
+    case 4: store()
     // case 5: update()
     // case 6: destroy()
     // case 7:
@@ -84,14 +84,14 @@ func show(read string) {
 
   var readBooks, unreadBooks, bookStr string
 
-  for _, item := range books {
+  for _, book := range books {
     bookStr = strings.Join([]string {
-      fmt.Sprintf("Judul: %s", item.title),
-      fmt.Sprintf("Penulis: %s", item.author),
-      fmt.Sprintf("Tahun terbit: %d\n", item.year),
+      fmt.Sprintf("Judul: %s", book.title),
+      fmt.Sprintf("Penulis: %s", book.author),
+      fmt.Sprintf("Tahun terbit: %d\n", book.year),
     }, "\t")
 
-    if item.read {
+    if book.read {
       readBooks += bookStr
     } else {
       unreadBooks += bookStr
@@ -111,21 +111,27 @@ func show(read string) {
   fmt.Println()
 }
 
-// func store() {
-  // fmt.Println("[MENU] Tambah item")
+func store() {
+  fmt.Println("[MENU] Tambah buku")
 
-  // var item string
+  var book Book
 
-  // fmt.Print("Masukkan nama item >> ")
-  // fmt.Scanln(&item)
+  fmt.Print("Masukkan judul buku >> ")
+  fmt.Scan(&book.title)
 
-  // todolist = append(todolist, item)
+  fmt.Print("Masukkan nama penulis buku >> ")
+  fmt.Scan(&book.author)
 
-  // fmt.Println("[INFO] Berhasil menambahkan item")
-  // fmt.Println()
+  fmt.Print("Masukkan tahun terbit buku >> ")
+  fmt.Scan(&book.year)
 
-  // show()
-// }
+  books = append(books, book)
+
+  fmt.Println("[INFO] Berhasil menambahkan buku")
+  fmt.Println()
+
+  show("")
+}
 
 // func update() {
   // fmt.Println("[MENU] Ubah item")
