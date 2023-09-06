@@ -2,10 +2,9 @@ package main
 
 import "fmt"
 
-var running bool = true
-var todolist = []string { "Ngoding", "Belajar", "Makan",
-  "Minum" }
-var err error
+var running  bool     = true
+var todolist []string = []string { "Ngoding", "Belajar", "Makan", "Minum" }
+var err      error
 
 func main() {
   welcome()
