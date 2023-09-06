@@ -53,9 +53,9 @@ func selectMenu() {
   fmt.Println()
 
   switch selection {
-    case 1: show()
-    // case 2: showRead()
-    // case 3: showNotRead()
+    case 1: show("")
+    case 2: show("read")
+    case 3: show("unread")
     // case 4: store()
     // case 5: update()
     // case 6: destroy()
@@ -78,11 +78,11 @@ func selectMenu() {
   // fmt.Println()
 }
 
-func show() {
+func show(read string) {
   fmt.Println("[INFO] Daftar buku")
   fmt.Println()
 
-  var readBooks, notReadBooks, bookStr string
+  var readBooks, unreadBooks, bookStr string
 
   for _, item := range books {
     bookStr = strings.Join([]string {
@@ -94,15 +94,19 @@ func show() {
     if item.read {
       readBooks += bookStr
     } else {
-      notReadBooks += bookStr
+      unreadBooks += bookStr
     }
   }
 
-  fmt.Println("[SECTION] Read book list")
-  fmt.Println(readBooks)
+  if read == "" || read == "read" {
+    fmt.Println("[SECTION] Read book list")
+    fmt.Println(readBooks)
+  }
 
-  fmt.Println("[SECTION] Not read book list")
-  fmt.Println(notReadBooks)
+  if read == "" || read == "unread" {
+    fmt.Println("[SECTION] Unread book list")
+    fmt.Println(unreadBooks)
+  }
 
   fmt.Println()
 }
