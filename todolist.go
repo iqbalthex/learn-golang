@@ -2,9 +2,9 @@ package main
 
 import "fmt"
 
+var err      error
 var running  bool     = true
 var todolist []string = []string { "Ngoding", "Belajar", "Makan", "Minum" }
-var err      error
 
 func main() {
   welcome()
@@ -109,8 +109,6 @@ func update() {
   todolist[selection - 1] = newItem
   fmt.Printf("[INFO] Berhasil mengubah %q menjadi %q\n", item, newItem)
   fmt.Println()
-
-  show()
 }
 
 func destroy() {
