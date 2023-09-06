@@ -37,10 +37,12 @@ func listMenu() {
   fmt.Println("1. Tampilkan semua buku")
   fmt.Println("2. Tampilkan semua buku telah dibaca")
   fmt.Println("3. Tampilkan semua buku belum dibaca")
-  fmt.Println("4. Tambah buku")
-  fmt.Println("5. Ubah buku")
-  fmt.Println("6. Hapus buku")
-  fmt.Println("7. Keluar aplikasi")
+  fmt.Println("4. Tandai buku sudah dibaca")
+  fmt.Println("5. Tandai buku belum dibaca")
+  fmt.Println("6. Tambah buku")
+  fmt.Println("7. Ubah buku")
+  fmt.Println("8. Hapus buku")
+  fmt.Println("9. Keluar aplikasi")
 
   selectMenu()
 }
@@ -56,10 +58,12 @@ func selectMenu() {
     case 1: show("")
     case 2: show("read")
     case 3: show("unread")
-    case 4: store()
-    // case 5: update()
-    case 6: destroy()
-    case 7:
+    // case 4: mark("read")
+    // case 5: mark("unread")
+    case 6: store()
+    case 7: update()
+    case 8: destroy()
+    case 9:
       exitApp()
       return
     default: invalidSelection()
@@ -137,32 +141,66 @@ func store() {
   show("")
 }
 
-// func update() {
-  // fmt.Println("[MENU] Ubah item")
-  // fmt.Println()
-  // show()
+func update() {
+  fmt.Println("[MENU] Ubah buku")
+  fmt.Println()
+  show("")
 
-  // var selection int
+  var code string
 
-  // fmt.Println("Masukkan nomor item yang ingin diubah")
-  // fmt.Print(">> ")
-  // fmt.Scanln(&selection)
-  // fmt.Println()
+  fmt.Println("Masukkan kode buku yang ingin diubah")
+  fmt.Print(">> ")
+  fmt.Scanln(&code)
+  fmt.Println()
 
-  // var item string = todolist[selection - 1]
-  // var newItem string
+  var book Book = books[code]
 
-  // fmt.Printf("Item asal: %s\n", item)
-  // fmt.Print("Ubah menjadi >> ")
-  // fmt.Scanln(&newItem)
-  // fmt.Println()
+  fmt.Printf("Data buku %q sebelumnya: %s\n", code, strings.Join([]string {
+    fmt.Sprintf("Judul: %s", book.title),
+    fmt.Sprintf("Penulis: %s", book.author),
+    fmt.Sprintf("Tahun terbit: %d", book.year),
+  }, "\t"))
 
-  // todolist[selection - 1] = newItem
-  // fmt.Printf("[INFO] Berhasil mengubah %q menjadi %q\n", item, newItem)
-  // fmt.Println()
+  var change int
 
-  // show()
-// }
+  fmt.Println("Apa yang ingin diubah?")
+  fmt.Println("1. Judul")
+  fmt.Println("2. Nama Penulis")
+  fmt.Println("3. Tahun terbit")
+
+  fmt.Print(">> ")
+  fmt.Scanln(&change)
+  fmt.Println()
+
+  switch change {
+    case 1:
+      var title string
+      fmt.Print("Ubah judul menjadi >> ")
+      fmt.Scanln(&title)
+      book.title = title
+
+    case 2:
+      var author string
+      fmt.Print("Ubah nama penulis menjadi >> ")
+      fmt.Scanln(&author)
+      book.author = author
+
+    case 3:
+      var year int
+      fmt.Print("Ubah tahun terbit menjadi >> ")
+      fmt.Scanln(&year)
+      book.year = year
+  }
+
+  books[code] = book
+
+  fmt.Printf("[INFO] Berhasil mengubah buku dengan kode %q menjadi\n%s\n", code, strings.Join([]string {
+    fmt.Sprintf("Judul: %s", book.title),
+    fmt.Sprintf("Penulis: %s", book.author),
+    fmt.Sprintf("Tahun terbit: %d", book.year),
+  }, "\t"))
+  fmt.Println()
+}
 
 func destroy() {
   fmt.Println("[MENU] Hapus buku")
