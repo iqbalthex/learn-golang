@@ -58,7 +58,7 @@ func selectMenu() {
     case 3: show("unread")
     case 4: store()
     // case 5: update()
-    // case 6: destroy()
+    case 6: destroy()
     case 7:
       exitApp()
       return
@@ -164,27 +164,24 @@ func store() {
   // show()
 // }
 
-// func destroy() {
-  // fmt.Println("[MENU] Hapus item")
-  // fmt.Println()
-  // show()
+func destroy() {
+  fmt.Println("[MENU] Hapus buku")
+  fmt.Println()
+  show("")
 
-  // var selection int
+  var code string
 
-  // fmt.Println("Masukkan kode buku yang ingin dihapus")
-  // fmt.Print(">> ")
-  // fmt.Scanln(&selection)
-  // fmt.Println()
+  fmt.Println("Masukkan kode buku yang ingin dihapus")
+  fmt.Print(">> ")
+  fmt.Scanln(&code)
+  fmt.Println()
 
-  // var index int = selection - 1
-  // var item string = todolist[index]
+  delete(books, code)
+  fmt.Printf("[INFO] Berhasil menghapus buku dengan kode %q\n", code)
+  fmt.Println()
 
-  // todolist = append(todolist[:index], todolist[(index + 1):]...)
-  // fmt.Printf("[INFO] Berhasil menghapus %q\n", item)
-  // fmt.Println()
-
-  // show()
-// }
+  show("")
+}
 
 func exitApp() {
   running = false
